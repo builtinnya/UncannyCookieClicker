@@ -1,0 +1,47 @@
+{
+  "manifest_version": 2,
+  "name": "Uncanny Cookie Clicker",
+  "version": "0.0.0",
+  "description": "A helper extension for CookieClicker.",
+  "icons": {},
+  "background": {
+    "scripts": [
+      "js/lib/underscore.js",
+      "js/modules/config.js",
+      "js/modules/contentHandlers.js",
+      "js/modules/backgroundHandlers.js",
+      "js/modules/util/messaging.js",
+      "js/modules/util/messagingClient.js",
+      "js/background.js"
+    ]
+  },
+  "page_action": {
+    "default_popup": "html/popup.html"
+  },
+  "author": "Naoto Yokoyama",
+  "content_scripts": [
+    {
+      "matches": ["http://orteil.dashnet.org/cookieclicker/"],
+      "js": [
+        "js/lib/underscore.js",
+        "js/modules/backgroundHandlers.js",
+        "js/modules/contentHandlers.js",
+        "js/modules/util/messaging.js",
+        "js/modules/util/messagingClient.js",
+        "js/modules/pageHandlers.js",
+        "js/modules/util/pageMessaging.js",
+        "js/content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    "js/*",
+    "html/*",
+    "css/*",
+    "images/*"
+  ]
+}
