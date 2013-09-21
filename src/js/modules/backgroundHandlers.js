@@ -1,7 +1,13 @@
 var backgroundHandlers = function () {
 
   return {
-    handleHello: function (args, sender, sendResponse) {
+    handleGreeting: function (args, sender, sendResponse) {
+      console.log('Accepted greeting from the embedding page.');
+      sendResponse({ cmd: 'Greeting' });
+    },
+
+    handleGreetingEnd: function (args, sender, sendResponse) {
+      console.log('Greeting end.');
     }
   };
 

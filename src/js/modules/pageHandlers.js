@@ -1,8 +1,10 @@
-var pageHandlers = function (messagingClient) {
+var pageHandlers = function () {
 
   return {
-    handleHello: function (args, sendResponse) {
+    handleGreeting: function (args, sendResponse) {
+      console.log('Hello, Extension!');
+      sendResponse({ cmd: 'GreetingEnd' });
     }
   };
 
-}(messagingClient);
+}();

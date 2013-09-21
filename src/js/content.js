@@ -4,7 +4,6 @@
     'js/lib/watch.js',
     'js/lib/underscore.js',
     'js/modules/GameClient.js',
-    'js/modules/util/messagingClient.js',
     'js/modules/pageHandlers.js',
     'js/modules/util/pageMessaging.js',
     'js/page.js'

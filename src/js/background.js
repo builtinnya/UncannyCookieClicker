@@ -1,13 +1,9 @@
 ;(function (config, messaging, messagingClient) {
 
-  var cookieClickerTabId;
-
   chrome.tabs.onUpdated.addListener(
     function (tabId, changeInfo, tab) {
-      if (tab.url == config.cookieClickerUrl) {
-        cookieClickerTabId = tabId;
+      if (tab.url == config.cookieClickerUrl)
         chrome.pageAction.show(tabId);
-      }
     }
   );
 
