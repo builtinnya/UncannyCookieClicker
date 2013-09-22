@@ -1,9 +1,11 @@
-;(function (window, document, messaging, pageMessaging) {
+;(function (window, document, messaging, pageMessagingProxy) {
 
   var injectedScripts = [
     'js/lib/watch.js',
     'js/lib/underscore.js',
-    'js/modules/GameClient.js',
+    'js/modules/util/pageMessagingCommon.js',
+    'js/modules/util/pageMessagingClient.js',
+    'js/modules/gameClient.js',
     'js/modules/pageHandlers.js',
     'js/modules/util/pageMessaging.js',
     'js/page.js'
@@ -19,6 +21,6 @@
   });
 
   messaging.contentInitialize();
-  pageMessaging.contentInitialize();
+  pageMessagingProxy.contentInitialize();
 
-})(window, document, messaging, pageMessaging);
+})(window, document, messaging, pageMessagingProxy);

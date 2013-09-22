@@ -24,12 +24,13 @@
       "matches": ["http://orteil.dashnet.org/cookieclicker/"],
       "js": [
         "js/lib/underscore.js",
+        "js/lib/watch.js",
         "js/modules/backgroundHandlers.js",
         "js/modules/contentHandlers.js",
         "js/modules/util/messaging.js",
         "js/modules/util/messagingClient.js",
-        "js/modules/pageHandlers.js",
-        "js/modules/util/pageMessaging.js",
+        "js/modules/util/pageMessagingCommon.js",
+        "js/modules/util/pageMessagingProxy.js",
         "js/content.js"
       ],
       "run_at": "document_end"

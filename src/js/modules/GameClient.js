@@ -1,50 +1,51 @@
-var GameClient = function (Game) {
+var gameClient = function (WatchJS, Game) {
+  // `Game` is the main object for CookieClicker.
+  if (!Game)
+    throw 'Error: object `Game` is undefined.';
 
-  return (function (WatchJS) {
+  var watch = WatchJS.watch,
+    unwatch = WatchJS.unwatch,
+    callWatchers = WatchJS.callWatchers,
+    autoClickIntervalID;
 
-    if (!Game) {
-      throw 'Error: object Game is undefined.';
-    }
+  var clickCookie = function () {
+    Game.ClickCookie();
+  };
 
-    var watch = WatchJS.watch,
-      unwatch = WatchJS.unwatch,
-      callWatchers = WatchJS.callWatchers,
-      goldenCookie_ = Game.goldenCookie,
-      autoClickIntervalID_;
+  var stopAutoClickCookie = function () {
+    if (autoClickIntervalID)
+      clearInterval(autoClickIntervalID);
+  };
 
-    function clickCookie_() {
-      Game.ClickCookie();
-    }
+  var autoClickCookie = function (interval) {
+    stopAutoClickCookie();
+    autoClickIntervalID = setInterval(clickCookie, interval);
+  };
 
-    function autoClickCookie_(interval) {
-      if (autoClickIntervalID_) {
-        clearInterval(autoClickIntervalID_);
-      }
-      autoClickIntervalID_ = setInterval(clickCookie_, interval);
-    }
+  var clickGoldenCookie = function () {
+    Game.goldenCookie.click();
+  };
 
-    function clickGoldenCookie_() {
-      goldenCookie_.click();
-    }
+  var goldenCookieWatcher = function () {
+    if (Game.goldenCookie.life > 0)
+      clickGoldenCookie();
+  };
 
-    function goldenCookieWatcher_() {
-      if (goldenCookie_.life > 0) {
-        clickGoldenCookie_();
-      }
-    }
+  var stopAutoClickGoldenCookie = function () {
+    unwatch(Game.goldenCookie, 'life', goldenCookieWatcher);
+  };
 
-    function autoClickGoldenCookie_() {
-      watch(goldenCookie_, 'life', goldenCookieWatcher_);
-    }
+  var autoClickGoldenCookie = function () {
+    watch(Game.goldenCookie, 'life', goldenCookieWatcher);
+  };
 
-    return {
-      clickCookie: clickCookie_,
-      autoClickCookie: autoClickCookie_,
-      clickGoldenCookie: clickGoldenCookie_,
-      autoClickGoldenCookie: autoClickGoldenCookie_
-    };
+  return {
+    clickCookie: clickCookie,
+    autoClickCookie: autoClickCookie,
+    stopAutoClickCookie: stopAutoClickCookie,
+    clickGoldenCookie: clickGoldenCookie,
+    autoClickGoldenCookie: autoClickGoldenCookie,
+    stopAutoClickGoldenCookie: stopAutoClickGoldenCookie
+  };
 
-  })(WatchJS);
-
-};
-
+}(WatchJS, window.Game);

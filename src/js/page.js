@@ -1,11 +1,18 @@
-;(function (window, document, pageMessaging) {
+;(function (window, document, pageMessaging, pageMessagingClient) {
 
   var oldOnLoad = window.onload || function () {};
 
-  window.onload = function () {
-    oldOnLoad();
+  var initialize = function () {
     pageMessaging.pageInitialize();
-    pageMessaging.sendToExtension({ cmd: 'Greeting' });
+    pageMessagingClient.sendToExtension({ cmd: 'Greeting'});
+    pageMessagingClient.sendToExtension({ cmd: 'ConfigClient' });
   };
 
-})(window, document, pageMessaging);
+  window.onload = function () {
+    // Old `window.onload` initializes `Game` object.
+    oldOnLoad();
+    // Now we can use `Game` object to play the game!
+    initialize();
+  };
+
+})(window, document, pageMessaging, pageMessagingClient);
