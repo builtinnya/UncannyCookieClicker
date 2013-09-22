@@ -1,5 +1,9 @@
 var pageMessaging = function (window, _, pageHandlers) {
+  // Module for bi-directional messaging between embedding page and extension.
+  // Requests and handler dispatching are the same as messaging.js.
+  //
 
+  // Invoking handlers if the message has the expected direction
   var dispatcher = function (type, event, invokeHandlers) {
     if (event.source != window)
       return;
@@ -21,12 +25,14 @@ var pageMessaging = function (window, _, pageHandlers) {
     window.postMessage({ type: type, request: request }, '*');
   };
 
+  // Proxing messages from embedding page
   var proxy = function (event) {
     chrome.runtime.sendMessage(event.data.request, function (response) {
       postMessage(FROM_EXTENSION, response);
     });
   };
 
+  // Proxing messages from extension
   var proxyHandler = function (request, sender, sendResponse) {
     if (!request || !request.cmd || !_.isString(request.cmd))
       return;
@@ -34,6 +40,7 @@ var pageMessaging = function (window, _, pageHandlers) {
       postMessage(FROM_EXTENSION, args.request);
   };
 
+  // Invoking the embedding page's handler corresponding to the given command
   var invokePageHandlers = function (event) {
     var handlers = pageHandlers,
       request = event.data.request,
