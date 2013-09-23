@@ -1,4 +1,5 @@
-var gameClient = function (WatchJS, Game) {
+var gameClient = function (document, WatchJS, Game, pageMessagingClient) {
+
   // `Game` is the main object for CookieClicker.
   if (!Game)
     throw 'Error: object `Game` is undefined.';
@@ -26,9 +27,16 @@ var gameClient = function (WatchJS, Game) {
     Game.goldenCookie.click();
   };
 
-  var goldenCookieWatcher = function () {
-    if (Game.goldenCookie.life > 0)
+  var goldenCookieWatcher = function (prop, action, newValue, oldValue) {
+    if (oldValue === 0 && newValue > 0)
       clickGoldenCookie();
+  };
+
+  var goldenCookieNotifier = function (prop, action, newValue, oldValue) {
+    if (oldValue === 0 && newValue > 0)
+      pageMessagingClient.sendToExtension({
+        cmd: 'GoldenCookieNotification',
+      });
   };
 
   var stopAutoClickGoldenCookie = function () {
@@ -39,13 +47,23 @@ var gameClient = function (WatchJS, Game) {
     watch(Game.goldenCookie, 'life', goldenCookieWatcher);
   };
 
+  var stopGoldenCookieNotification = function () {
+    unwatch(Game.goldenCookie, 'life', goldenCookieNotifier);
+  };
+
+  var notifyGoldenCookie = function () {
+    watch(Game.goldenCookie, 'life', goldenCookieNotifier);
+  };
+
   return {
     clickCookie: clickCookie,
     autoClickCookie: autoClickCookie,
     stopAutoClickCookie: stopAutoClickCookie,
     clickGoldenCookie: clickGoldenCookie,
     autoClickGoldenCookie: autoClickGoldenCookie,
-    stopAutoClickGoldenCookie: stopAutoClickGoldenCookie
+    stopAutoClickGoldenCookie: stopAutoClickGoldenCookie,
+    notifyGoldenCookie: notifyGoldenCookie,
+    stopGoldenCookieNotification: stopGoldenCookieNotification
   };
 
-}(WatchJS, window.Game);
+}(document, WatchJS, window.Game, pageMessagingClient);

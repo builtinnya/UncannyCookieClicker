@@ -1,4 +1,13 @@
-var pageHandlers = function (client) {
+var pageHandlers = function (gameClient) {
+
+  var configGameClient = function (configs) {
+    configs.forEach(function (config) {
+      var cmd = gameClient[config.cmd],
+        argList = config.argList || [];
+      if (cmd)
+        cmd.apply(this, argList);
+    });
+  };
 
   return {
     handleGreeting: function (args, sendResponse) {
@@ -7,6 +16,9 @@ var pageHandlers = function (client) {
     },
 
     handleConfigRequest: function (args, sendResponse) {
+      if (!args)
+        return;
+      configGameClient(args);
     }
   };
 

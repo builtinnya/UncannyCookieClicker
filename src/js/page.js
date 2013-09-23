@@ -1,10 +1,9 @@
-;(function (window, document, pageMessaging, pageMessagingClient) {
+;(function (window, pageMessaging, pageMessagingClient) {
 
   var oldOnLoad = window.onload || function () {};
 
   var initialize = function () {
     pageMessaging.pageInitialize();
-    pageMessagingClient.sendToExtension({ cmd: 'Greeting'});
     pageMessagingClient.sendToExtension({ cmd: 'ConfigClient' });
   };
 
@@ -15,4 +14,4 @@
     initialize();
   };
 
-})(window, document, pageMessaging, pageMessagingClient);
+})(window, pageMessaging, pageMessagingClient);

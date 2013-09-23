@@ -12,6 +12,17 @@ var backgroundHandlers = function () {
 
     handleConfigClient: function (args, sender, sendResponse) {
       console.log('Configurating client...');
+      sendResponse({
+        cmd: 'ConfigRequest',
+        args: [
+            { cmd: 'notifyGoldenCookie' },
+            { cmd: 'autoClickGoldenCookie' },
+        ]
+      });
+    },
+
+    handleGoldenCookieNotification: function (args, sender, sendResponse) {
+      console.log('Golden cookie appeared!');
     }
   };
 
