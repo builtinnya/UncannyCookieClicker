@@ -1,8 +1,36 @@
-body {
-  color: black;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: small;
+label {
   margin: 0;
   padding: 0;
-  width: 200px;
+}
+
+.container {
+  width: auto;
+  min-width: 205px;
+  padding: 0 10px;
+}
+
+.section {
+  margin: 4px auto 12px;
+}
+
+.section .header {
+  font-family: "Arial Black", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.1;
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 3px;
+}
+
+.section .body {
+  font-size: 11px;
+}
+
+.section .body .option {
+  float: right;
+}
+
+.input-number {
+  width: 35px;
+  height: 18px;
 }

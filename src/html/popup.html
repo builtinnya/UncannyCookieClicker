@@ -1,12 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <title>UncannyCookieClicker Popup</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="../css/popup.css">
-  <script type="text/javascript" src="js/popup.js"></script>
-  <title>Popup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../css/bootstrap.css" rel="stylesheet" media="screen">
+  <link href="../css/popup.css" rel="stylesheet" media="screen">
 </head>
 <body>
-  Uncanny Cookie Clicker!
+  <div class="container">
+    <div class="section">
+      <div class="header">
+        Uncanny Cookie Clicker
+      </div>
+    </div>
+    <div class="section">
+      <div class="header">
+        Big Cookie
+      </div>
+      <div class="body">
+        <input type="checkbox" id="auto-click-cookie" />
+        <label for="auto-click-cookie">
+          Auto-click
+        </label>
+        <div class="option">
+          <label for="auto-click-cookie-interval">
+            interval:
+          </label>
+          <input type="number" min="1" class="input-number" id="auto-click-cookie-interval" />
+          ms
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="header">
+        Golden Cookie
+      </div>
+      <div class="body">
+        <label>
+          <input type="checkbox" id="auto-click-golden-cookie" />
+          Auto-click
+        </label>
+        <label>
+          <input type="checkbox" id="notify-golden-cookie" />
+          Notify when it appears
+        </label>
+      </div>
+    </div>
+  </div>
+  <script src="../js/lib/jquery.js"></script>
+  <script src="../js/lib/bootstrap.js"></script>
+  <script src="../js/popup.js"></script>
 </body>
 </html>
