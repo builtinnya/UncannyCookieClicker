@@ -1,9 +1,9 @@
 var pageHandlers = function (gameClient) {
 
-  var configGameClient = function (configs) {
-    configs.forEach(function (config) {
-      var cmd = gameClient[config.cmd],
-        argList = config.argList || [];
+  var configGameClient = function (config) {
+    Object.keys(config).forEach(function (cmdName) {
+      var cmd = gameClient[cmdName],
+        argList = config[cmdName] || [];
       if (cmd)
         cmd.apply(this, argList);
     });

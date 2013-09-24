@@ -14,7 +14,7 @@ var pageMessagingProxy = function (window, common) {
     if (!request || !request.cmd || !_.isString(request.cmd))
       return;
     if (request.args && request.cmd == common.PROXY_COMMAND)
-      common.postMessage(common.FROM_EXTENSION, args.request);
+      common.postMessage(common.FROM_EXTENSION, request.args);
   };
 
   return {

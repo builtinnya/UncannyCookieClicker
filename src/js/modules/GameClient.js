@@ -20,6 +20,8 @@ var gameClient = function (document, WatchJS, Game, pageMessagingClient) {
 
   var autoClickCookie = function (interval) {
     stopAutoClickCookie();
+    if (!interval || interval < 1)
+      interval = 1;
     autoClickIntervalID = setInterval(clickCookie, interval);
   };
 

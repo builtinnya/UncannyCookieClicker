@@ -1,9 +1,9 @@
-var backgroundHandlers = function () {
+var backgroundHandlers = function (storage) {
 
   return {
     handleGreeting: function (args, sender, sendResponse) {
       console.log('Accepted greeting from the embedding page.');
-      sendResponse({ cmd: 'Greeting' });
+      return sendResponse({ cmd: 'Greeting' });
     },
 
     handleGreetingEnd: function (args, sender, sendResponse) {
@@ -12,13 +12,28 @@ var backgroundHandlers = function () {
 
     handleConfigClient: function (args, sender, sendResponse) {
       console.log('Configurating client...');
-      sendResponse({
-        cmd: 'ConfigRequest',
-        args: [
-            { cmd: 'notifyGoldenCookie' },
-            { cmd: 'autoClickGoldenCookie' },
-        ]
+
+      storage.get(null, function (items) {
+        if (!items)
+          return;
+
+        var r = {};
+
+        if (items['autoClickCookie']) {
+          var interval = items['autoClickCookieInterval'] || 1;
+          r.autoClickCookie = [ interval ];
+        }
+
+        if (items['autoClickGoldenCookie'])
+          r.autoClickGoldenCookie = [];
+
+        if (items['notifyGoldenCookie'])
+          r.notifyGoldenCookie = [];
+
+        sendResponse({ cmd: 'ConfigRequest', args: r });
       });
+
+      return true;
     },
 
     handleGoldenCookieNotification: function (args, sender, sendResponse) {
@@ -26,4 +41,4 @@ var backgroundHandlers = function () {
     }
   };
 
-}();
+}(storage);
