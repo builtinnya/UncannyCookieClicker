@@ -1,4 +1,4 @@
-var backgroundHandlers = function (storage) {
+var backgroundHandlers = function (storage, notifications) {
 
   return {
     handleGreeting: function (args, sender, sendResponse) {
@@ -11,8 +11,6 @@ var backgroundHandlers = function (storage) {
     },
 
     handleConfigClient: function (args, sender, sendResponse) {
-      console.log('Configurating client...');
-
       storage.get(null, function (items) {
         if (!items)
           return;
@@ -37,8 +35,8 @@ var backgroundHandlers = function (storage) {
     },
 
     handleGoldenCookieNotification: function (args, sender, sendResponse) {
-      console.log('Golden cookie appeared!');
+      notifications.notify('A golden cookie has appeared!');
     }
   };
 
-}(storage);
+}(storage, notifications);
