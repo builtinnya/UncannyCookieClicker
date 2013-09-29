@@ -17,16 +17,22 @@ var backgroundHandlers = function (storage, notifications) {
 
         var r = {};
 
-        if (items['autoClickCookie']) {
-          var interval = items['autoClickCookieInterval'] || 1;
+        if (items.autoClickCookie) {
+          var interval = items.autoClickCookieInterval || 1;
           r.autoClickCookie = [ interval ];
         }
 
-        if (items['autoClickGoldenCookie'])
+        if (items.autoClickGoldenCookie)
           r.autoClickGoldenCookie = [];
 
-        if (items['notifyGoldenCookie'])
+        if (items.notifyGoldenCookie)
           r.notifyGoldenCookie = [];
+
+        if (items.autoBuyUpgrades)
+          r.autoBuyUpgrades = [];
+
+        if (items.notifyUpgrades)
+          r.notifyUpgrades = [];
 
         sendResponse({ cmd: 'ConfigRequest', args: r });
       });
@@ -36,6 +42,10 @@ var backgroundHandlers = function (storage, notifications) {
 
     handleGoldenCookieNotification: function (args, sender, sendResponse) {
       notifications.notify('A golden cookie has appeared!');
+    },
+
+    handleUpgradesNotification: function (args, sender, sendResponse) {
+      notifications.notify(args.message);
     }
   };
 

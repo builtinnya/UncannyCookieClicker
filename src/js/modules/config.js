@@ -7,7 +7,9 @@ var config = function () {
       autoClickCookie: false,
       autoClickCookieInterval: 1,
       autoClickGoldenCookie: false,
-      notifyGoldenCookie: false
+      notifyGoldenCookie: false,
+      autoBuyUpgrades: false,
+      notifyUpgrades: false
     },
     notificationDuration: 5000
   };
