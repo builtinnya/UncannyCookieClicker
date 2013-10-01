@@ -2,7 +2,10 @@ var config = function () {
 
   return {
     extensionName: 'Uncanny Cookie Clicker',
-    cookieClickerUrl: 'http://orteil.dashnet.org/cookieclicker/',
+    cookieClickerUrls: [
+      'http://orteil.dashnet.org/cookieclicker/',
+      'http://orteil.dashnet.org/cookieclicker/beta/'
+    ],
     defaultSettings: {
       autoClickCookie: false,
       autoClickCookieInterval: 1,

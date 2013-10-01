@@ -2,7 +2,7 @@
 
   chrome.tabs.onUpdated.addListener(
     function (tabId, changeInfo, tab) {
-      if (tab.url == config.cookieClickerUrl)
+      if (config.cookieClickerUrls.indexOf(tab.url) !== -1)
         chrome.pageAction.show(tabId);
     }
   );

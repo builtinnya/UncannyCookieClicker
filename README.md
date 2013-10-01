@@ -6,6 +6,10 @@
 - Auto-click the big cookie at given interval
 - Auto-click a golden cookie when it appears
 - Notify you when a golden cookie appears
+- Auto-buy upgrades
+- Notify you when upgrades become available
+
+This extension also works on the [beta version of Cookie Clicker][].
 
 [Uncanny Cookie Clicker]: https://chrome.google.com/webstore/detail/uncanny-cookie-clicker/mmmdenlpgbgmeofmdkhimecmkcgabgno
     "Uncanny Cookie Clicker"
@@ -15,6 +19,9 @@
 
 [Cookie Clicker]: http://orteil.dashnet.org/cookieclicker/
     "Cookie Clicker"
+
+[beta version of Cookie Clicker]: http://orteil.dashnet.org/cookieclicker/beta/
+    "Cookie Clicker Beta"
 
 ## Implementation note
 

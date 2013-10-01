@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Uncanny Cookie Clicker",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A simple helper extension for Cookie Clicker players.",
   "icons": {
     "16": "images/icon16.png",
@@ -34,7 +34,10 @@
   "author": "Naoto Yokoyama",
   "content_scripts": [
     {
-      "matches": ["http://orteil.dashnet.org/cookieclicker/"],
+      "matches": [
+        "http://orteil.dashnet.org/cookieclicker/",
+        "http://orteil.dashnet.org/cookieclicker/beta/"
+      ],
       "js": [
         "js/lib/underscore.js",
         "js/lib/watch.js",
