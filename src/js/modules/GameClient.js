@@ -17,7 +17,9 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     autoClickIntervalID,
     availableUpgradesWatcherIntervalID,
     availableUpgradesWatchers = [],
-    availableUpgrades = [];
+    availableUpgrades = [],
+    upgradesBypassDialog = false,
+    upgradesRepeatable = false;
 
   var clickCookie = function () {
     Game.ClickCookie();
@@ -104,11 +106,19 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
 
   var autoBuyUpgradesWatcher = function (newValue) {
     newValue.forEach(function (upgrade) {
-      if (upgrade.clickFunction ||
-          upgrade.desc.startsWith('[Switch]') ||
-          upgrade.desc.startsWith('[Repeatable]'))
+      if (upgrade.desc.startsWith('[Switch]'))
         return;
-      upgrade.buy();
+      if (!upgradesRepeatable && upgrade.desc.startsWith('[Repeatable]'))
+        return;
+      if (upgrade.clickFunction) {
+        if (!upgradesBypassDialog)
+          return;
+        var clickFunction = upgrade.clickFunction;
+        upgrade.clickFunction = undefined;
+        upgrade.buy();
+        upgrade.clickFunction = clickFunction;
+      } else
+        upgrade.buy();
     });
   };
 
@@ -123,6 +133,22 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     removeAvailableUpgradesWatcher(autoBuyUpgradesWatcher);
     availableUpgradesWatchers.push(autoBuyUpgradesWatcher);
     watchAvailableUpgrades();
+  };
+
+  var stopBypassDialogForUpgrades = function () {
+    upgradesBypassDialog = false;
+  };
+
+  var bypassDialogForUpgrades = function () {
+    upgradesBypassDialog = true;
+  };
+
+  var stopBuyRepeatableUpgrades = function () {
+    upgradesRepeatable = false;
+  };
+
+  var buyRepeatableUpgrades = function () {
+    upgradesRepeatable = true;
   };
 
   var notifyUpgradesWatcher = function (newValue, diffValue, oldValue) {
@@ -167,13 +193,23 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     clickCookie: clickCookie,
     autoClickCookie: autoClickCookie,
     stopAutoClickCookie: stopAutoClickCookie,
+
     clickGoldenCookie: clickGoldenCookie,
     autoClickGoldenCookie: autoClickGoldenCookie,
     stopAutoClickGoldenCookie: stopAutoClickGoldenCookie,
+
     notifyGoldenCookie: notifyGoldenCookie,
     stopGoldenCookieNotification: stopGoldenCookieNotification,
+
     autoBuyUpgrades: autoBuyUpgrades,
     stopAutoBuyUpgrades: stopAutoBuyUpgrades,
+
+    bypassDialogForUpgrades: bypassDialogForUpgrades,
+    stopBypassDialogForUpgrades: stopBypassDialogForUpgrades,
+
+    buyRepeatableUpgrades: buyRepeatableUpgrades,
+    stopBuyRepeatableUpgrades: stopBuyRepeatableUpgrades,
+
     notifyUpgrades: notifyUpgrades,
     stopUpgradesNotification: stopUpgradesNotification
   };

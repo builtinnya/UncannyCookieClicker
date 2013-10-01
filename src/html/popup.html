@@ -19,17 +19,21 @@
         Big Cookie
       </div>
       <div class="body">
-        <input type="checkbox" id="auto-click-cookie" />
-        <label for="auto-click-cookie">
-          Auto-click
-        </label>
-        <div class="option">
-          <label for="auto-click-cookie-interval">
-            interval:
-          </label>
-          <input type="number" min="1" class="input-number" id="auto-click-cookie-interval" />
-          ms
-        </div>
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" id="auto-click-cookie" />
+              Auto-click
+            </label>
+            <div class="option">
+              <label for="auto-click-cookie-interval">
+                interval:
+              </label>
+              <input type="number" min="1" class="input-number" id="auto-click-cookie-interval" />
+              ms
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="section">
@@ -37,14 +41,20 @@
         Golden Cookie
       </div>
       <div class="body">
-        <label>
-          <input type="checkbox" id="auto-click-golden-cookie" />
-          Auto-click
-        </label>
-        <label>
-          <input type="checkbox" id="notify-golden-cookie" />
-          Notify when it appears
-        </label>
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" id="auto-click-golden-cookie" />
+              Auto-click
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" id="notify-golden-cookie" />
+              Notify when it appears
+            </label>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="section">
@@ -52,14 +62,38 @@
         Upgrades
       </div>
       <div class="body">
-        <label id="auto-buy-upgrades-label">
-          <input type="checkbox" id="auto-buy-upgrades" />
-          Auto-buy
-        </label>
-        <label>
-          <input type="checkbox" id="notify-available-upgrades" />
-          Notify when available
-        </label>
+        <ul>
+          <li>
+            <label id="auto-buy-upgrades-label">
+              <input type="checkbox" id="auto-buy-upgrades" />
+              Auto-buy
+            </label>
+            <div class="option">
+              <ul>
+                <li>
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <label>
+                    <input type="checkbox" id="bypass-dialog-for-upgrades" />
+                    Bypass dialog
+                  </label>
+                </li>
+                <li>
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <label>
+                    <input type="checkbox" id="buy-repeatable-upgrades" />
+                    [Repeatable]
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" id="notify-available-upgrades" />
+              Notify when available
+            </label>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

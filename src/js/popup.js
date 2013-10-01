@@ -19,10 +19,13 @@
       autoClickGoldenCookie = $('#auto-click-golden-cookie'),
       notifyGoldenCookie = $('#notify-golden-cookie'),
       autoBuyUpgrades = $('#auto-buy-upgrades'),
+      bypassDialogForUpgrades = $('#bypass-dialog-for-upgrades'),
+      buyRepeatableUpgrades = $('#buy-repeatable-upgrades'),
       notifyUpgrades = $('#notify-available-upgrades');
 
     $('#auto-buy-upgrades-label').tooltip({
-      title: 'Auto-buy the cheapest available upgrade except repeatable one or one that needs confirmation.',
+      title: 'Automatically buy the cheapest available upgrade except ' +
+             '[Repeatable], [Switch], or one that needs confirmation.',
       placement: 'auto top'
     });
 
@@ -44,6 +47,12 @@
 
       if (items.autoBuyUpgrades)
         autoBuyUpgrades.prop('checked', true);
+
+      if (items.bypassDialogForUpgrades)
+        bypassDialogForUpgrades.prop('checked', true);
+
+      if (items.buyRepeatableUpgrades)
+        buyRepeatableUpgrades.prop('checked', true);
 
       if (items.notifyUpgrades)
         notifyUpgrades.prop('checked', true);
@@ -122,6 +131,36 @@
         r = { stopAutoBuyUpgrades: [] };
 
       storage.set({ autoBuyUpgrades: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    bypassDialogForUpgrades.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { bypassDialogForUpgrades: [] };
+      else
+        r = { stopBypassDialogForUpgrades: [] };
+
+      storage.set({ bypassDialogForUpgrades: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    buyRepeatableUpgrades.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { buyRepeatableUpgrades: [] };
+      else
+        r = { stopBuyRepeatableUpgrades: [] };
+
+      storage.set({ buyRepeatableUpgrades: this.checked });
 
       doTabs(function (tab) {
         pageMessagingClient.sendConfigRequest(tab.id, r);

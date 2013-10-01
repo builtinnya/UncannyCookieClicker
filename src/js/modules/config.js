@@ -9,6 +9,8 @@ var config = function () {
       autoClickGoldenCookie: false,
       notifyGoldenCookie: false,
       autoBuyUpgrades: false,
+      bypassDialogForUpgrades: false,
+      buyRepeatableUpgrades: false,
       notifyUpgrades: false
     },
     notificationDuration: 5000

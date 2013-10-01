@@ -31,6 +31,12 @@ var backgroundHandlers = function (storage, notifications) {
         if (items.autoBuyUpgrades)
           r.autoBuyUpgrades = [];
 
+        if (items.bypassDialogForUpgrades)
+          r.bypassDialogForUpgrades = [];
+
+        if (items.buyRepeatableUpgrades)
+          r.buyRepeatableUpgrades = [];
+
         if (items.notifyUpgrades)
           r.notifyUpgrades = [];
 
