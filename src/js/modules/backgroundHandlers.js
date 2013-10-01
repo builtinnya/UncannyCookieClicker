@@ -25,6 +25,9 @@ var backgroundHandlers = function (storage, notifications) {
         if (items.autoClickGoldenCookie)
           r.autoClickGoldenCookie = [];
 
+        if (items.avoidRedCookie)
+          r.avoidRedCookie = [];
+
         if (items.notifyGoldenCookie)
           r.notifyGoldenCookie = [];
 

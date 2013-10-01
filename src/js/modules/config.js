@@ -10,6 +10,7 @@ var config = function () {
       autoClickCookie: false,
       autoClickCookieInterval: 1,
       autoClickGoldenCookie: false,
+      avoidRedCookie: true,
       notifyGoldenCookie: false,
       autoBuyUpgrades: false,
       bypassDialogForUpgrades: false,

@@ -17,6 +17,7 @@
     var autoClickCookie = $('#auto-click-cookie'),
       autoClickCookieInterval = $('#auto-click-cookie-interval'),
       autoClickGoldenCookie = $('#auto-click-golden-cookie'),
+      avoidRedCookie = $('#avoid-red-cookie'),
       notifyGoldenCookie = $('#notify-golden-cookie'),
       autoBuyUpgrades = $('#auto-buy-upgrades'),
       bypassDialogForUpgrades = $('#bypass-dialog-for-upgrades'),
@@ -41,6 +42,9 @@
 
       if (items.autoClickGoldenCookie)
         autoClickGoldenCookie.prop('checked', true);
+
+      if (items.avoidRedCookie)
+        avoidRedCookie.prop('checked', true);
 
       if (items.notifyGoldenCookie)
         notifyGoldenCookie.prop('checked', true);
@@ -101,6 +105,21 @@
         r = { stopAutoClickGoldenCookie: [] };
 
       storage.set({ autoClickGoldenCookie: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    avoidRedCookie.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { avoidRedCookie: [] };
+      else
+        r = { stopAvoidRedCookie: [] };
+
+      storage.set({ avoidRedCookie: this.checked });
 
       doTabs(function (tab) {
         pageMessagingClient.sendConfigRequest(tab.id, r);

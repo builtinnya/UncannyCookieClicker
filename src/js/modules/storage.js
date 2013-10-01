@@ -10,7 +10,8 @@ var storage = function (config) {
         if (!items)
           return callback(items);
         Object.keys(defaultKeyVals).forEach(function (key) {
-          items[key] = items[key] || defaultKeyVals[key];
+          if (items[key] === undefined)
+            items[key] = defaultKeyVals[key];
         });
         return callback(items);
       });

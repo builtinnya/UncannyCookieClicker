@@ -19,7 +19,8 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     availableUpgradesWatchers = [],
     availableUpgrades = [],
     upgradesBypassDialog = false,
-    upgradesRepeatable = false;
+    upgradesRepeatable = false,
+    redCookieAvoidance = false;
 
   var clickCookie = function () {
     Game.ClickCookie();
@@ -38,7 +39,17 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var clickGoldenCookie = function () {
+    if (Game.goldenCookie.wrath > 0 && redCookieAvoidance)
+      return;
     Game.goldenCookie.click();
+  };
+
+  var stopAvoidRedCookie = function () {
+    redCookieAvoidance = false;
+  };
+
+  var avoidRedCookie = function () {
+    redCookieAvoidance = true;
   };
 
   var goldenCookieWatcher = function (prop, action, newValue, oldValue) {
@@ -197,6 +208,9 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     clickGoldenCookie: clickGoldenCookie,
     autoClickGoldenCookie: autoClickGoldenCookie,
     stopAutoClickGoldenCookie: stopAutoClickGoldenCookie,
+
+    avoidRedCookie: avoidRedCookie,
+    stopAvoidRedCookie: stopAvoidRedCookie,
 
     notifyGoldenCookie: notifyGoldenCookie,
     stopGoldenCookieNotification: stopGoldenCookieNotification,
