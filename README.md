@@ -6,8 +6,9 @@
 - Auto-click the big cookie at given interval
 - Auto-click a golden cookie when it appears (avoiding red cookies if you want)
 - Notify you when a golden cookie appears
-- Auto-buy upgrades
+- Auto-buy upgrades and buildings
 - Notify you when upgrades become available
+- Speed up the game
 
 This extension also works on the [beta version of Cookie Clicker][].
 
