@@ -22,11 +22,19 @@
       autoBuyUpgrades = $('#auto-buy-upgrades'),
       bypassDialogForUpgrades = $('#bypass-dialog-for-upgrades'),
       buyRepeatableUpgrades = $('#buy-repeatable-upgrades'),
-      notifyUpgrades = $('#notify-available-upgrades');
+      notifyUpgrades = $('#notify-available-upgrades'),
+      speedUpGame = $('#speed-up-game'),
+      speedUpGameFactor = $('#speed-up-game-factor'),
+      autoBuyBuildings = $('#auto-buy-buildings');
 
     $('#auto-buy-upgrades-label').tooltip({
       title: 'Automatically buy the cheapest available upgrade except ' +
              '[Repeatable], [Switch], or one that needs confirmation.',
+      placement: 'auto top'
+    });
+
+    $('#auto-buy-buildings-label').tooltip({
+      title: 'Automatically buy the cheapest available building.',
       placement: 'auto top'
     });
 
@@ -60,6 +68,15 @@
 
       if (items.notifyUpgrades)
         notifyUpgrades.prop('checked', true);
+
+      if (items.speedUpGame)
+        speedUpGame.prop('checked', true);
+
+      var factor = items.speedUpGameFactor || 1;
+      speedUpGameFactor.val(factor);
+
+      if (items.autoBuyBuildings)
+        autoBuyBuildings.prop('checked', true);
     });
 
     autoClickCookie.click(function () {
@@ -195,6 +212,55 @@
         r = { stopUpgradesNotification: [] };
 
       storage.set({ notifyUpgrades: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    speedUpGame.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = {
+          speedUpGame: [ speedUpGameFactor.val() ]
+        };
+      else
+        r = {
+          stopSpeedUpGame: []
+        };
+
+      storage.set({ speedUpGame: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    speedUpGameFactor.bind('keyup input change', function () {
+      var factor = $(this).val();
+
+      storage.set({ speedUpGameFactor: $(this).val() });
+
+      if (!speedUpGame.prop('checked'))
+        return;
+
+      var r = { speedUpGame: [ factor ] };
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    autoBuyBuildings.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { autoBuyBuildings: [] };
+      else
+        r = { stopAutoBuyBuildings: [] };
+
+      storage.set({ autoBuyBuildings: this.checked });
 
       doTabs(function (tab) {
         pageMessagingClient.sendConfigRequest(tab.id, r);

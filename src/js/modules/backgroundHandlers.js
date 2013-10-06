@@ -43,6 +43,14 @@ var backgroundHandlers = function (storage, notifications) {
         if (items.notifyUpgrades)
           r.notifyUpgrades = [];
 
+        if (items.speedUpGame) {
+          var factor = items.speedUpGameFactor || 1;
+          r.speedUpGame = [ factor ];
+        }
+
+        if (items.autoBuyBuildings)
+          r.autoBuyBuildings = [];
+
         sendResponse({ cmd: 'ConfigRequest', args: r });
       });
 

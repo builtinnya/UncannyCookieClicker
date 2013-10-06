@@ -13,6 +13,22 @@
       <div class="header">
         Uncanny Cookie Clicker
       </div>
+      <div class="body">
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" id="speed-up-game" />
+              Speed up the game
+            </label>
+            <div class="option">
+              <label for="speed-up-game-factor">
+                x
+              </label>
+              <input type="number" min="1" class="input-number" id="speed-up-game-factor" />
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="section">
       <div class="header">
@@ -102,6 +118,21 @@
             <label>
               <input type="checkbox" id="notify-available-upgrades" />
               Notify when available
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="header">
+        Buildings
+      </div>
+      <div class="body">
+        <ul>
+          <li>
+            <label id="auto-buy-buildings-label">
+              <input type="checkbox" id="auto-buy-buildings" />
+              Auto-buy
             </label>
           </li>
         </ul>

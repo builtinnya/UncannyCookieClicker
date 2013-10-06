@@ -15,7 +15,10 @@ var config = function () {
       autoBuyUpgrades: false,
       bypassDialogForUpgrades: false,
       buyRepeatableUpgrades: false,
-      notifyUpgrades: false
+      notifyUpgrades: false,
+      speedUpGame: false,
+      speedUpGameFactor: 1,
+      autoBuyBuildings: false
     },
     notificationDuration: 5000
   };

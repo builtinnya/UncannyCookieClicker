@@ -20,7 +20,11 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     availableUpgrades = [],
     upgradesBypassDialog = false,
     upgradesRepeatable = false,
-    redCookieAvoidance = false;
+    redCookieAvoidance = false,
+    speedUpGameIntervalID,
+    availableBuildingsWatcherIntervalID,
+    availableBuildingsWatchers = [],
+    availableBuildings = [];
 
   var clickCookie = function () {
     Game.ClickCookie();
@@ -200,6 +204,95 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     watchAvailableUpgrades();
   };
 
+  var stopSpeedUpGame = function () {
+    if (speedUpGameIntervalID)
+      clearInterval(speedUpGameIntervalID);
+  };
+
+  var speedUpGame = function (factor) {
+    stopSpeedUpGame();
+    if (!factor || factor < 1)
+      factor = 1;
+    speedUpGameIntervalID = setInterval(function () {
+      Game.accumulatedDelay += (factor - 1) * 1000 / Game.fps;
+    }, 1000 / Game.fps);
+  };
+
+  var unwatchAvailableBuildings = function () {
+    if (availableBuildingsWatcherIntervalID)
+      clearInterval(availableBuildingsWatcherIntervalID);
+  };
+
+  var sortBuildingsByPrice = function (buildings) {
+    var list = [];
+
+    buildings.forEach(function (b) {
+      list.push(b);
+    });
+
+    list.sort(function (b1, b2) {
+      if (b1.price > b2.price)
+        return 1;
+      else if (b1.price < b2.price)
+        return -1;
+      else
+        return 0;
+    });
+
+    return list;
+  };
+
+  var watchAvailableBuildings = function () {
+    unwatchAvailableBuildings();
+    if (availableBuildingsWatchers.length === 0)
+      return;
+    availableBuildingsWatcherIntervalID = setInterval(function () {
+      var newValue = [],
+        diffValue = [];
+      Game.ObjectsById.forEach(function (building) {
+        if (building.price > Game.cookies)
+          return;
+        newValue.push(building);
+        if (availableBuildings.indexOf(building) === -1)
+          diffValue.push(building);
+      });
+      // if (diffValue.length > 0) {
+      availableBuildingsWatchers.forEach(function (watcher) {
+        watcher(newValue, diffValue, availableBuildings);
+      });
+      availableBuildings = newValue;
+      // }
+    }, 50);
+  };
+
+  var removeAvailableBuildingsWatcher = function (watcher) {
+    var i = availableBuildingsWatchers.indexOf(watcher);
+    if (i !== -1)
+      availableBuildingsWatchers.splice(i, 1);
+  };
+
+  var autoBuyBuildingsWatcher = function (newValue) {
+    sortBuildingsByPrice(newValue).every(function (building) {
+      if (building.price > Game.cookies)
+        return false;
+      building.buy();
+      return true;
+    });
+  };
+
+  var stopAutoBuyBuildings = function () {
+    unwatchAvailableBuildings();
+    removeAvailableBuildingsWatcher(autoBuyBuildingsWatcher);
+    watchAvailableBuildings();
+  };
+
+  var autoBuyBuildings = function () {
+    unwatchAvailableBuildings();
+    removeAvailableBuildingsWatcher(autoBuyBuildingsWatcher);
+    availableBuildingsWatchers.push(autoBuyBuildingsWatcher);
+    watchAvailableBuildings();
+  };
+
   return {
     clickCookie: clickCookie,
     autoClickCookie: autoClickCookie,
@@ -225,7 +318,13 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     stopBuyRepeatableUpgrades: stopBuyRepeatableUpgrades,
 
     notifyUpgrades: notifyUpgrades,
-    stopUpgradesNotification: stopUpgradesNotification
+    stopUpgradesNotification: stopUpgradesNotification,
+
+    speedUpGame: speedUpGame,
+    stopSpeedUpGame: stopSpeedUpGame,
+
+    autoBuyBuildings: autoBuyBuildings,
+    stopAutoBuyBuildings: stopAutoBuyBuildings
   };
 
 }(WatchJS, window.Game, pageMessagingClient);
