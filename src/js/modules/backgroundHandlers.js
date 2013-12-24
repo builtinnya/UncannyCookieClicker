@@ -25,11 +25,17 @@ var backgroundHandlers = function (storage, notifications) {
         if (items.autoClickGoldenCookie)
           r.autoClickGoldenCookie = [];
 
+        if (items.autoClickSeasonPopup)
+          r.autoClickSeasonPopup = [];
+
         if (items.avoidRedCookie)
           r.avoidRedCookie = [];
 
         if (items.notifyGoldenCookie)
           r.notifyGoldenCookie = [];
+
+        if (items.notifySeasonPopup)
+          r.notifySeasonPopup = [];
 
         if (items.autoBuyUpgrades)
           r.autoBuyUpgrades = [];
@@ -59,6 +65,10 @@ var backgroundHandlers = function (storage, notifications) {
 
     handleGoldenCookieNotification: function (args, sender, sendResponse) {
       notifications.notify('A golden cookie has appeared!');
+    },
+
+    handleSeasonPopupNotification: function (args, sender, sendResponse) {
+      notifications.notify('A Reindeer has appeared!');
     },
 
     handleUpgradesNotification: function (args, sender, sendResponse) {
