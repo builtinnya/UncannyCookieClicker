@@ -17,8 +17,10 @@
     var autoClickCookie = $('#auto-click-cookie'),
       autoClickCookieInterval = $('#auto-click-cookie-interval'),
       autoClickGoldenCookie = $('#auto-click-golden-cookie'),
+      autoClickSeasonPopup = $('#auto-click-season-popup'),
       avoidRedCookie = $('#avoid-red-cookie'),
       notifyGoldenCookie = $('#notify-golden-cookie'),
+      notifySeasonPopup = $('#notify-season-popup'),
       autoBuyUpgrades = $('#auto-buy-upgrades'),
       bypassDialogForUpgrades = $('#bypass-dialog-for-upgrades'),
       buyRepeatableUpgrades = $('#buy-repeatable-upgrades'),
@@ -51,11 +53,17 @@
       if (items.autoClickGoldenCookie)
         autoClickGoldenCookie.prop('checked', true);
 
+      if (items.autoClickSeasonPopup)
+        autoClickSeasonPopup.prop('checked', true);
+
       if (items.avoidRedCookie)
         avoidRedCookie.prop('checked', true);
 
       if (items.notifyGoldenCookie)
         notifyGoldenCookie.prop('checked', true);
+
+      if (items.notifySeasonPopup)
+        notifySeasonPopup.prop('checked', true);
 
       if (items.autoBuyUpgrades)
         autoBuyUpgrades.prop('checked', true);
@@ -128,6 +136,21 @@
       });
     });
 
+    autoClickSeasonPopup.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { autoClickSeasonPopup: [] };
+      else
+        r = { stopAutoClickSeasonPopup: [] };
+
+      storage.set({ autoClickSeasonPopup: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
     avoidRedCookie.click(function () {
       var r = {};
 
@@ -152,6 +175,21 @@
         r = { stopGoldenCookieNotification: [] };
 
       storage.set({ notifyGoldenCookie: this.checked });
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    notifySeasonPopup.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { notifySeasonPopup: [] };
+      else
+        r = { stopSeasonPopupNotification: [] };
+
+      storage.set({ notifySeasonPopup: this.checked });
 
       doTabs(function (tab) {
         pageMessagingClient.sendConfigRequest(tab.id, r);

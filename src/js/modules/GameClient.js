@@ -48,6 +48,10 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     Game.goldenCookie.click();
   };
 
+  var clickSeasonPopup = function () {
+    Game.seasonPopup.click();
+  };
+
   var stopAvoidRedCookie = function () {
     redCookieAvoidance = false;
   };
@@ -61,6 +65,11 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
       clickGoldenCookie();
   };
 
+  var seasonPopupWatcher = function (prop, action, newValue, oldValue) {
+    if (oldValue === 0 && newValue > 0)
+      clickSeasonPopup();
+  };
+
   var goldenCookieNotifier = function (prop, action, newValue, oldValue) {
     if (oldValue === 0 && newValue > 0)
       pageMessagingClient.sendToExtension({
@@ -68,20 +77,43 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
       });
   };
 
+  var seasonPopupNotifier = function (prop, action, newValue, oldValue) {
+    if (oldValue === 0 && newValue > 0)
+      pageMessagingClient.sendToExtension({
+        cmd: 'SeasonPopupNotification',
+      });
+  };
+
   var stopAutoClickGoldenCookie = function () {
     unwatch(Game.goldenCookie, 'life', goldenCookieWatcher);
+  };
+
+  var stopAutoClickSeasonPopup = function () {
+    unwatch(Game.seasonPopup, 'life', seasonPopupWatcher);
   };
 
   var autoClickGoldenCookie = function () {
     watch(Game.goldenCookie, 'life', goldenCookieWatcher);
   };
 
+  var autoClickSeasonPopup = function () {
+    watch(Game.seasonPopup, 'life', seasonPopupWatcher);
+  };
+
   var stopGoldenCookieNotification = function () {
     unwatch(Game.goldenCookie, 'life', goldenCookieNotifier);
   };
 
+  var stopSeasonPopupNotification = function () {
+    unwatch(Game.seasonPopup, 'life', seasonPopupNotifier);
+  };
+
   var notifyGoldenCookie = function () {
     watch(Game.goldenCookie, 'life', goldenCookieNotifier);
+  };
+
+  var notifySeasonPopup = function () {
+    watch(Game.seasonPopup, 'life', seasonPopupNotifier);
   };
 
   var unwatchAvailableUpgrades = function () {
@@ -302,11 +334,18 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     autoClickGoldenCookie: autoClickGoldenCookie,
     stopAutoClickGoldenCookie: stopAutoClickGoldenCookie,
 
+    clickSeasonPopup: clickSeasonPopup,
+    autoClickSeasonPopup: autoClickSeasonPopup,
+    stopAutoClickSeasonPopup: stopAutoClickSeasonPopup,
+
     avoidRedCookie: avoidRedCookie,
     stopAvoidRedCookie: stopAvoidRedCookie,
 
     notifyGoldenCookie: notifyGoldenCookie,
     stopGoldenCookieNotification: stopGoldenCookieNotification,
+
+    notifySeasonPopup: notifySeasonPopup,
+    stopSeasonPopupNotification: stopSeasonPopupNotification,
 
     autoBuyUpgrades: autoBuyUpgrades,
     stopAutoBuyUpgrades: stopAutoBuyUpgrades,
