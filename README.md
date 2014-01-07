@@ -9,6 +9,7 @@
 - Auto-buy upgrades and buildings
 - Notify you when upgrades become available
 - Speed up the game
+- Auto-click and notify when a season popup appears
 
 This extension also works on the [beta version of Cookie Clicker][].
 
@@ -40,6 +41,11 @@ This extension also works on the [beta version of Cookie Clicker][].
 - [jQuery](http://jquery.com/) (v1.10.2)
 - [Underscore](https://github.com/amdjs/underscore/) (v1.4.1, AMD compatible fork)
 - [Watch.JS](https://github.com/melanke/Watch.JS) (v1.3.0)
+
+## Authors
+
+- [Naoto Yokoyama](https://github.com/builtinnya) - the original author
+- [Gray-Wind](https://github.com/Gray-Wind) - support season popups
 
 ## License
 
