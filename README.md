@@ -25,6 +25,19 @@ This extension also works on the [beta version of Cookie Clicker][].
 [beta version of Cookie Clicker]: http://orteil.dashnet.org/cookieclicker/beta/
     "Cookie Clicker Beta"
 
+## Publishing
+
+Extensions must be compressed into a zip file to publish to the
+[Chrome Web Store][].
+`pack.sh` is a helper script for compressing extensions used as below.
+
+``` bash
+$ cd /path/to/repo
+$ ./pack.sh src
+```
+
+[Chrome Web Store]: https://chrome.google.com/webstore/
+
 ## Implementation note
 
 - Directory structure and messaging module for communication between
