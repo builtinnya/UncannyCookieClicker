@@ -49,6 +49,6 @@ This extension also works on the [beta version of Cookie Clicker][].
 
 ## License
 
-Copyright (c) 2013 Naoto Yokoyama.
+Copyright (c) 2013-2014 Naoto Yokoyama.
 Distributed under the MIT License.
 See the file LICENSE.
