@@ -24,7 +24,8 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     speedUpGameIntervalID,
     availableBuildingsWatcherIntervalID,
     availableBuildingsWatchers = [],
-    availableBuildings = [];
+    availableBuildings = [],
+    buildingList = [];
 
   var clickCookie = function () {
     Game.ClickCookie();
@@ -307,7 +308,10 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     sortBuildingsByPrice(newValue).every(function (building) {
       if (building.price > Game.cookies)
         return false;
-      building.buy();
+      if (!buildingList[building.id] ||
+          buildingList[building.id].autoBuy === undefined ||
+          buildingList[building.id].autoBuy)
+        building.buy();
       return true;
     });
   };
@@ -323,6 +327,10 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     removeAvailableBuildingsWatcher(autoBuyBuildingsWatcher);
     availableBuildingsWatchers.push(autoBuyBuildingsWatcher);
     watchAvailableBuildings();
+  };
+
+  var updateBuildingList = function (newBuildingList) {
+    buildingList = newBuildingList;
   };
 
   return {
@@ -363,7 +371,8 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     stopSpeedUpGame: stopSpeedUpGame,
 
     autoBuyBuildings: autoBuyBuildings,
-    stopAutoBuyBuildings: stopAutoBuyBuildings
+    stopAutoBuyBuildings: stopAutoBuyBuildings,
+    updateBuildingList: updateBuildingList
   };
 
 }(WatchJS, window.Game, pageMessagingClient);

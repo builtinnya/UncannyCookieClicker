@@ -9,6 +9,16 @@
     if (!window.Game.Init)
       throw 'Error: Game.Init is undefined: This extension may not support this version of Cookie Clicker.';
 
+    var makeBuildingList = function (Game) {
+      var buildingList = [];
+
+      Game.ObjectsById.forEach(function (building) {
+        buildingList.push({ name: building.name });
+      });
+
+      return buildingList;
+    };
+
     var oldGameInit = window.Game.Init;
 
     // Cookie Clicker calls Game.Init after loading assets asynchronously.
@@ -18,8 +28,16 @@
       // Call the initializer for Cookie Clicker.
       oldGameInit();
 
-      // Then initialize the messaging module and the game client.
+      // Now the Game object is initialized.
+
+      // First, initialize the messaging module.
       pageMessaging.pageInitialize();
+      // Second, send information of game objects to the extension.
+      pageMessagingClient.sendToExtension({
+        cmd: 'UpdateBuildingList',
+        args: makeBuildingList(window.Game)
+      });
+      // Last, send a request for configuring game client to the extension.
       pageMessagingClient.sendToExtension({ cmd: 'ConfigClient' });
     };
 

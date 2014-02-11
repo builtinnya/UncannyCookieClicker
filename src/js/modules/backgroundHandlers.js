@@ -10,6 +10,26 @@ var backgroundHandlers = function (storage, notifications) {
       console.log('Greeting end.');
     },
 
+    handleUpdateBuildingList: function (args, sender, sendResponse) {
+      storage.get(null, function (items) {
+        var buildingList = args;
+        if (!items.buildingList) {
+          buildingList.forEach(function (building, index) {
+            buildingList[index].autoBuy = true;
+          });
+        } else {
+          buildingList.forEach(function (building, index) {
+            var oldValue = items.buildingList[index];
+            if (oldValue.autoBuy === undefined)
+              buildingList[index].autoBuy = true;
+            else
+              buildingList[index].autoBuy = oldValue.autoBuy;
+          });
+        }
+        storage.set({ buildingList: buildingList });
+      });
+    },
+
     handleConfigClient: function (args, sender, sendResponse) {
       storage.get(null, function (items) {
         if (!items)
@@ -49,6 +69,7 @@ var backgroundHandlers = function (storage, notifications) {
         if (items.notifyUpgrades)
           r.notifyUpgrades = [];
 
+
         if (items.speedUpGame) {
           var factor = items.speedUpGameFactor || 1;
           r.speedUpGame = [ factor ];
@@ -56,6 +77,9 @@ var backgroundHandlers = function (storage, notifications) {
 
         if (items.autoBuyBuildings)
           r.autoBuyBuildings = [];
+
+        if (items.buildingList)
+          r.updateBuildingList = [ items.buildingList ];
 
         sendResponse({ cmd: 'ConfigRequest', args: r });
       });

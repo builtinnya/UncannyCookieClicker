@@ -1,4 +1,4 @@
-;(function ($) {
+;(function (document, $) {
 
   var background = chrome.extension.getBackgroundPage();
   if (!background)
@@ -27,7 +27,9 @@
       notifyUpgrades = $('#notify-available-upgrades'),
       speedUpGame = $('#speed-up-game'),
       speedUpGameFactor = $('#speed-up-game-factor'),
-      autoBuyBuildings = $('#auto-buy-buildings');
+      autoBuyBuildings = $('#auto-buy-buildings'),
+      buildingList = $('#building-list'),
+      toggleBuildingList = $('#toggle-building-list');
 
     $('#auto-buy-upgrades-label').tooltip({
       title: 'Automatically buy the cheapest available upgrade except ' +
@@ -85,6 +87,30 @@
 
       if (items.autoBuyBuildings)
         autoBuyBuildings.prop('checked', true);
+
+      if (items.buildingList) {
+        items.buildingList.forEach(function (building, index) {
+          buildingList.find('ul').append(
+            $('<li/>').append(
+              $('<label/>').append(
+                $('<input type="checkbox"/>')
+                  .prop('checked', building.autoBuy)
+                  .click(function () {
+                    items.buildingList[index].autoBuy = !building.autoBuy;
+                    storage.set({ buildingList: items.buildingList });
+                    doTabs(function (tab) {
+                      pageMessagingClient.sendConfigRequest(tab.id, {
+                        updateBuildingList: [ items.buildingList ]
+                      });
+                    });
+                  })
+              ).append(
+                document.createTextNode(' ' + building.name)
+              )
+            )
+          );
+        });
+      }
     });
 
     autoClickCookie.click(function () {
@@ -304,6 +330,15 @@
         pageMessagingClient.sendConfigRequest(tab.id, r);
       });
     });
+
+    toggleBuildingList.click(function () {
+      if (buildingList.css('display') === 'none')
+        toggleBuildingList.text('Less...');
+      else
+        toggleBuildingList.text('More...');
+
+      buildingList.toggle();
+    });
   });
 
-})($);
+})(document, $);

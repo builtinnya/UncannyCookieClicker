@@ -30,6 +30,17 @@ label {
   float: right;
 }
 
+.section .body .option .text-only {
+  margin-top: 2px;
+}
+
+.section .body .sub-options {
+  margin-left: 6px;
+  padding-left: 5px;
+  border-left: 1px solid #aaaaaa;
+  display: none;
+}
+
 .input-number {
   width: 40px;
   height: 18px;
