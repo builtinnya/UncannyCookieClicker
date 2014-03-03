@@ -1,12 +1,14 @@
-;(function (config, messaging, messagingClient) {
+;(function (config, notifications, messaging, messagingClient) {
 
   chrome.tabs.onUpdated.addListener(
     function (tabId, changeInfo, tab) {
-      if (config.cookieClickerUrls.indexOf(tab.url) !== -1)
+      if (config.cookieClickerUrls.indexOf(tab.url) !== -1) {
+        notifications.setCookieClickerTabId(tab.id);
         chrome.pageAction.show(tabId);
+      }
     }
   );
 
   messaging.backgroundInitialize();
 
-})(config, messaging, messagingClient);
+})(config, notifications, messaging, messagingClient);
