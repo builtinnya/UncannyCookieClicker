@@ -25,7 +25,23 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     availableBuildingsWatcherIntervalID,
     availableBuildingsWatchers = [],
     availableBuildings = [],
-    buildingList = [];
+    buildingList = [],
+    switcherNames = {},
+    repeaterNames = {};
+
+  // Initialize the game client.
+  var initialize = function () {
+
+    // Initialize switcher and repeatable upgrade names.
+
+    switcherNames['Season switcher'] = true;
+
+    // Season triggers are a repeatable upgrade.
+    if (Game.seasonTriggers)
+      Game.seasonTriggers.forEach(function (upgradeName) {
+        repeaterNames[upgradeName] = true;
+      });
+  };
 
   var clickCookie = function () {
     Game.ClickCookie();
@@ -152,11 +168,27 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
       availableUpgradesWatchers.splice(i, 1);
   };
 
+  var isSwitcherUpgrade = function (upgrade) {
+    if (upgrade.desc.startsWith('[Switch]'))
+      return true;
+    if (Object.prototype.hasOwnProperty.call(switcherNames, upgrade.name))
+      return true;
+    return false;
+  };
+
+  var isRepeatableUpgrade = function (upgrade) {
+    if (upgrade.desc.startsWith('[Repeatable]'))
+      return true;
+    if (Object.prototype.hasOwnProperty.call(repeaterNames, upgrade.name))
+      return true;
+    return false;
+  };
+
   var autoBuyUpgradesWatcher = function (newValue) {
     newValue.forEach(function (upgrade) {
-      if (upgrade.desc.startsWith('[Switch]'))
+      if (isSwitcherUpgrade(upgrade))
         return;
-      if (!upgradesRepeatable && upgrade.desc.startsWith('[Repeatable]'))
+      if (!upgradesRepeatable && isRepeatableUpgrade(upgrade))
         return;
       if (upgrade.clickFunction) {
         if (!upgradesBypassDialog)
@@ -334,6 +366,8 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   return {
+    initialize: initialize,
+
     clickCookie: clickCookie,
     autoClickCookie: autoClickCookie,
     stopAutoClickCookie: stopAutoClickCookie,

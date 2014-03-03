@@ -1,4 +1,4 @@
-;(function (window, pageMessaging, pageMessagingClient) {
+;(function (window, gameClient, pageMessaging, pageMessagingClient) {
 
   var oldOnLoad = window.onload || function () {};
 
@@ -30,14 +30,17 @@
 
       // Now the Game object is initialized.
 
-      // First, initialize the messaging module.
+      // Initialize the game client.
+      gameClient.initialize();
+
+      // Initialize the messaging module.
       pageMessaging.pageInitialize();
-      // Second, send information of game objects to the extension.
+      // Send information of game objects to the extension.
       pageMessagingClient.sendToExtension({
         cmd: 'UpdateBuildingList',
         args: makeBuildingList(window.Game)
       });
-      // Last, send a request for configuring game client to the extension.
+      // Send a request for configuring game client to the extension.
       pageMessagingClient.sendToExtension({ cmd: 'ConfigClient' });
     };
 
@@ -45,4 +48,4 @@
     oldOnLoad();
   };
 
-})(window, pageMessaging, pageMessagingClient);
+})(window, gameClient, pageMessaging, pageMessagingClient);
