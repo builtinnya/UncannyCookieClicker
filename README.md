@@ -1,5 +1,7 @@
 # Uncanny Cookie Clicker
 
+![A screenshot of Uncanny Cookie Clicker](images/screenshot-01.png)
+
 [Uncanny Cookie Clicker][] is a [Chrome][] extension which helps you play
 [Cookie Clicker][]. Currently supported features are:
 
