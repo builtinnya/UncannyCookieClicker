@@ -14,13 +14,13 @@ var backgroundHandlers = function (storage, notifications) {
       storage.get(null, function (items) {
         var buildingList = args;
         if (!items.buildingList) {
-          buildingList.forEach(function (building, index) {
+          buildingList.forEach(function (_, index) {
             buildingList[index].autoBuy = true;
           });
         } else {
-          buildingList.forEach(function (building, index) {
+          buildingList.forEach(function (_, index) {
             var oldValue = items.buildingList[index];
-            if (oldValue.autoBuy === undefined)
+            if (oldValue === undefined || oldValue.autoBuy === undefined)
               buildingList[index].autoBuy = true;
             else
               buildingList[index].autoBuy = oldValue.autoBuy;
