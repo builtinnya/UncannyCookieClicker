@@ -6,6 +6,7 @@
 [Cookie Clicker][]. Currently supported features are:
 
 - Auto-click the big cookie at given interval
+- Auto-pop Wrinklers
 - Auto-click a golden cookie when it appears (avoiding red cookies if you want)
 - Notify you when a golden cookie appears
 - Auto-buy upgrades and buildings
