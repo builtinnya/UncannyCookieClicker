@@ -9,6 +9,7 @@ var config = function () {
     defaultSettings: {
       autoClickCookie: false,
       autoClickCookieInterval: 1,
+      autoPopWrinklers: false,
       autoClickGoldenCookie: false,
       autoClickSeasonPopup: false,
       avoidRedCookie: true,

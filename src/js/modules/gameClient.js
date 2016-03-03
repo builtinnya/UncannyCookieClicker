@@ -59,6 +59,10 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     autoClickIntervalID = setInterval(clickCookie, interval);
   };
 
+  var popAllWrinklers = function () {
+    Game.CollectWrinklers();
+  };
+
   var clickGoldenCookie = function () {
     if (Game.goldenCookie.wrath > 0 && redCookieAvoidance)
       return;
@@ -75,6 +79,11 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
 
   var avoidRedCookie = function () {
     redCookieAvoidance = true;
+  };
+
+  var wrinklersWatcher = function (prop, action, newValue, oldValue) {
+    if (newValue === 2)
+      popAllWrinklers();
   };
 
   var goldenCookieWatcher = function (prop, action, newValue, oldValue) {
@@ -99,6 +108,20 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
       pageMessagingClient.sendToExtension({
         cmd: 'SeasonPopupNotification',
       });
+  };
+
+  var stopAutoPopWrinklers = function () {
+    Game.wrinklers.forEach(function (wrinkler) {
+      unwatch(wrinkler, 'phase', wrinklersWatcher);
+    });
+  };
+
+  var autoPopWrinklers = function () {
+    popAllWrinklers();
+
+    Game.wrinklers.forEach(function (wrinkler) {
+      watch(wrinkler, 'phase', wrinklersWatcher);
+    });
   };
 
   var stopAutoClickGoldenCookie = function () {
@@ -371,6 +394,9 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     clickCookie: clickCookie,
     autoClickCookie: autoClickCookie,
     stopAutoClickCookie: stopAutoClickCookie,
+
+    autoPopWrinklers: autoPopWrinklers,
+    stopAutoPopWrinklers: stopAutoPopWrinklers,
 
     clickGoldenCookie: clickGoldenCookie,
     autoClickGoldenCookie: autoClickGoldenCookie,

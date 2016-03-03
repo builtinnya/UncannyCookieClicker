@@ -17,6 +17,7 @@
     var autoClickCookie = $('#auto-click-cookie'),
       autoClickCookieInterval = $('#auto-click-cookie-interval'),
       autoClickGoldenCookie = $('#auto-click-golden-cookie'),
+      autoPopWrinklers = $('#auto-pop-wrinklers'),
       autoClickSeasonPopup = $('#auto-click-season-popup'),
       avoidRedCookie = $('#avoid-red-cookie'),
       notifyGoldenCookie = $('#notify-golden-cookie'),
@@ -51,6 +52,9 @@
 
       var interval = items.autoClickCookieInterval || 1;
       autoClickCookieInterval.val(interval);
+
+      if (items.autoPopWrinklers)
+        autoPopWrinklers.prop('checked', true);
 
       if (items.autoClickGoldenCookie)
         autoClickGoldenCookie.prop('checked', true);
@@ -141,6 +145,21 @@
         return;
 
       var r = { autoClickCookie: [ interval ] };
+
+      doTabs(function (tab) {
+        pageMessagingClient.sendConfigRequest(tab.id, r);
+      });
+    });
+
+    autoPopWrinklers.click(function () {
+      var r = {};
+
+      if (this.checked)
+        r = { autoPopWrinklers: [] };
+      else
+        r = { stopAutoPopWrinklers: [] };
+
+      storage.set({ autoPopWrinklers: this.checked });
 
       doTabs(function (tab) {
         pageMessagingClient.sendConfigRequest(tab.id, r);

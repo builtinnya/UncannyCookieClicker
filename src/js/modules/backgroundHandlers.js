@@ -45,6 +45,9 @@ var backgroundHandlers = function (storage, notifications) {
         if (items.autoClickGoldenCookie)
           r.autoClickGoldenCookie = [];
 
+        if (items.autoPopWrinklers)
+          r.autoPopWrinklers = [];
+
         if (items.autoClickSeasonPopup)
           r.autoClickSeasonPopup = [];
 
