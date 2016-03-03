@@ -192,7 +192,7 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var isSwitcherUpgrade = function (upgrade) {
-    if (upgrade.desc.startsWith('[Switch]'))
+    if (upgrade.pool === 'toggle')
       return true;
     if (Object.prototype.hasOwnProperty.call(switcherNames, upgrade.name))
       return true;

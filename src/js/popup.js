@@ -34,7 +34,7 @@
 
     $('#auto-buy-upgrades-label').tooltip({
       title: 'Automatically buy the cheapest available upgrade except ' +
-             '[Repeatable], [Switch], or one that needs confirmation.',
+             '[Switch] or one that needs confirmation.',
       placement: 'auto top'
     });
 
