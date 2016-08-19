@@ -63,10 +63,23 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     Game.CollectWrinklers();
   };
 
-  var clickGoldenCookie = function () {
-    if (Game.goldenCookie.wrath > 0 && redCookieAvoidance)
+  var clickGoldenCookie = function (goldenCookie) {
+    if (goldenCookie.wrath > 0 && redCookieAvoidance)
       return;
-    Game.goldenCookie.click();
+
+    if (goldenCookie.life <= 0)
+      return;
+
+    if (goldenCookie.l.style.opacity == 0) {
+      // wait for goldenCookie first update
+      setTimeout(function(){
+        clickGoldenCookie(goldenCookie); 
+      }, 500);
+    } else {
+      goldenCookie.pop();
+      return;
+    }
+
   };
 
   var clickSeasonPopup = function () {
@@ -87,8 +100,11 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var goldenCookieWatcher = function (prop, action, newValue, oldValue) {
-    if (oldValue === 0 && newValue > 0)
-      clickGoldenCookie();
+    if (Game.shimmers.length >= 1)
+      Game.shimmers.forEach( function (goldenCookie) {
+        if (goldenCookie.type == "golden")
+          clickGoldenCookie(goldenCookie);
+      })
   };
 
   var seasonPopupWatcher = function (prop, action, newValue, oldValue) {
@@ -97,10 +113,14 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var goldenCookieNotifier = function (prop, action, newValue, oldValue) {
-    if (oldValue === 0 && newValue > 0)
-      pageMessagingClient.sendToExtension({
-        cmd: 'GoldenCookieNotification',
-      });
+    if (Game.shimmers.length >= 1)
+      Game.shimmers.forEach( function (goldenCookie) {
+        if (goldenCookie.type == "golden") {
+          pageMessagingClient.sendToExtension({
+            cmd: 'GoldenCookieNotification',
+          });
+        }
+      })
   };
 
   var seasonPopupNotifier = function (prop, action, newValue, oldValue) {
@@ -125,7 +145,7 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var stopAutoClickGoldenCookie = function () {
-    unwatch(Game.goldenCookie, 'life', goldenCookieWatcher);
+    unwatch(Game, "shimmersN", goldenCookieWatcher);
   };
 
   var stopAutoClickSeasonPopup = function () {
@@ -133,7 +153,7 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var autoClickGoldenCookie = function () {
-    watch(Game.goldenCookie, 'life', goldenCookieWatcher);
+    watch(Game, "shimmersN", goldenCookieWatcher);
   };
 
   var autoClickSeasonPopup = function () {
@@ -141,7 +161,7 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var stopGoldenCookieNotification = function () {
-    unwatch(Game.goldenCookie, 'life', goldenCookieNotifier);
+    unwatch(Game, "shimmersN", goldenCookieNotifier);
   };
 
   var stopSeasonPopupNotification = function () {
@@ -149,7 +169,7 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
   };
 
   var notifyGoldenCookie = function () {
-    watch(Game.goldenCookie, 'life', goldenCookieNotifier);
+    watch(Game, "shimmersN", goldenCookieNotifier);
   };
 
   var notifySeasonPopup = function () {
