@@ -4,7 +4,7 @@ var config = function () {
     extensionName: 'Uncanny Cookie Clicker',
     cookieClickerUrls: [
       'http://orteil.dashnet.org/cookieclicker/',
-      'http://orteil.dashnet.org/cookieclicker/beta/'
+      'http://orteil.dashnet.org/cookieclicker/beta/',
       'https://orteil.dashnet.org/cookieclicker/',
       'https://orteil.dashnet.org/cookieclicker/beta/'      
     ],
