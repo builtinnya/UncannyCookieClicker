@@ -5,6 +5,8 @@ var config = function () {
     cookieClickerUrls: [
       'http://orteil.dashnet.org/cookieclicker/',
       'http://orteil.dashnet.org/cookieclicker/beta/'
+      'https://orteil.dashnet.org/cookieclicker/',
+      'https://orteil.dashnet.org/cookieclicker/beta/'      
     ],
     defaultSettings: {
       autoClickCookie: false,
