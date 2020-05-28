@@ -63,6 +63,7 @@ $ ./pack.sh src
 - [Naoto Yokoyama](https://github.com/builtinnya) - the original author
 - [Gray-Wind](https://github.com/Gray-Wind) - support season popups
 - [Petrie Wong](https://github.com/petriewong) - update auto click golden cookies for v2.002
+- [mendel3](https://github.com/mendel3) - Add HTTPS support
 
 ## License
 
