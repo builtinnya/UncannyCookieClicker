@@ -36,7 +36,9 @@
     {
       "matches": [
         "http://orteil.dashnet.org/cookieclicker/",
-        "http://orteil.dashnet.org/cookieclicker/beta/"
+        "http://orteil.dashnet.org/cookieclicker/beta/",
+        "https://orteil.dashnet.org/cookieclicker/",
+        "https://orteil.dashnet.org/cookieclicker/beta/"        
       ],
       "js": [
         "js/lib/underscore.js",
