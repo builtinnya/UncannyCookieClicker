@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Uncanny Cookie Clicker",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A simple helper extension for Cookie Clicker players.",
   "icons": {
     "16": "images/icon16.png",
