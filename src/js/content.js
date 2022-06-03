@@ -13,7 +13,7 @@
 
   injectedScripts.forEach(function (script) {
     var s = document.createElement('script');
-    s.src = chrome.extension.getURL(script);
+    s.src = chrome.runtime.getURL(script);
     s.async = false;
     s.onload = function () {
       this.parentNode.removeChild(this);
@@ -21,7 +21,6 @@
     (document.head || document.documentElement).appendChild(s);
   });
 
-  messaging.contentInitialize();
   pageMessagingProxy.contentInitialize();
 
 })(window, document, messaging, pageMessagingProxy);

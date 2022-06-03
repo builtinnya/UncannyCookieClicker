@@ -1,6 +1,0 @@
-var contentHandlers = function () {
-
-  return {
-  };
-
-}();

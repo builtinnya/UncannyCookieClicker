@@ -1,11 +1,4 @@
-;(function (document, $) {
-
-  var background = chrome.extension.getBackgroundPage();
-  if (!background)
-    throw 'Error: no background page.';
-
-  var storage = background.storage,
-    pageMessagingClient = background.pageMessagingClient;
+;(function (document, $, storage, pageMessagingClient) {
 
   var doTabs = function (f) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -360,4 +353,4 @@
     });
   });
 
-})(document, $);
+})(document, $, storage, pageMessagingClient);

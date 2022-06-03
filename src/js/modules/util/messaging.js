@@ -1,4 +1,4 @@
-var messaging = function (_, contentHandlers, backgroundHandlers) {
+var messaging = function (_, backgroundHandlers) {
   // Module for request-response message communication between background part
   // and content script (can be also used from action popup html carefully).
   //
@@ -11,8 +11,8 @@ var messaging = function (_, contentHandlers, backgroundHandlers) {
   // `sender` describing the sender entity, and `sendResponse` that is a
   // function provided by the sender in order to provide response back.
   // `sendResponse` function accepts at least one argument: the response (of any
-  // type). All the available handler functions must be stored in either of the
-  // `handlers` storage objects in backgroundHandlers.js or contentHandlers.js.
+  // type). All the available handler functions must be stored in the
+  // `handlers` storage objects in backgroundHandlers.js.
   //
 
   // Invoking handler corresponding to `request.cmd`
@@ -42,12 +42,6 @@ var messaging = function (_, contentHandlers, backgroundHandlers) {
         makeDispatcher(backgroundHandlers)
       );
     },
-
-    contentInitialize: function () {
-      chrome.runtime.onMessage.addListener(
-        makeDispatcher(contentHandlers)
-      );
-    }
   };
 
-}(_, contentHandlers, backgroundHandlers);
+}(_, backgroundHandlers);

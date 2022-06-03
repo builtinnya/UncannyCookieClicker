@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Uncanny Cookie Clicker",
   "version": "0.5.5",
   "description": "A simple helper extension for Cookie Clicker players.",
@@ -9,21 +9,9 @@
     "128": "images/icon128.png"
   },
   "background": {
-    "scripts": [
-      "js/lib/underscore.js",
-      "js/modules/config.js",
-      "js/modules/storage.js",
-      "js/modules/notifications.js",
-      "js/modules/contentHandlers.js",
-      "js/modules/backgroundHandlers.js",
-      "js/modules/util/messaging.js",
-      "js/modules/util/messagingClient.js",
-      "js/modules/util/pageMessagingCommon.js",
-      "js/modules/util/pageMessagingClient.js",
-      "js/background.js"
-    ]
+    "service_worker": "background.js"
   },
-  "page_action": {
+  "action": {
     "default_icon": {
       "19": "images/icon19.png",
       "38": "images/icon38.png"
@@ -47,9 +35,7 @@
         "js/modules/storage.js",
         "js/modules/notifications.js",
         "js/modules/backgroundHandlers.js",
-        "js/modules/contentHandlers.js",
         "js/modules/util/messaging.js",
-        "js/modules/util/messagingClient.js",
         "js/modules/util/pageMessagingCommon.js",
         "js/modules/util/pageMessagingProxy.js",
         "js/content.js"
@@ -57,15 +43,20 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": [
-    "tabs",
-    "storage",
-    "notifications"
+  "permissions": ["tabs", "storage", "notifications"],
+  "host_permissions": [
+    "http://orteil.dashnet.org/cookieclicker/",
+    "http://orteil.dashnet.org/cookieclicker/beta/",
+    "https://orteil.dashnet.org/cookieclicker/",
+    "https://orteil.dashnet.org/cookieclicker/beta/"
   ],
   "web_accessible_resources": [
-    "js/*",
-    "html/*",
-    "css/*",
-    "images/*"
+    {
+      "resources": ["/js/*", "/html/*", "/css/*", "/images/*"],
+      "matches": [
+        "http://orteil.dashnet.org/*",
+        "https://orteil.dashnet.org/*"
+      ]
+    }
   ]
 }

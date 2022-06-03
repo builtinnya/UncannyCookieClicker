@@ -1,6 +1,6 @@
-var pageMessagingCommon = function (window) {
+var pageMessagingCommon = function () {
   // Module for bi-directional messaging between embedding page and extension.
-  // This module defines the common vacabularies.
+  // This module defines the common vocabularies.
 
   // Invoking handlers if the message has the expected direction
   var dispatcher = function (type, event, invokeHandlers) {
@@ -32,4 +32,4 @@ var pageMessagingCommon = function (window) {
     postMessage: postMessage
   };
 
-}(window);
+}();
