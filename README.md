@@ -71,6 +71,6 @@ $ ./pack.sh src
 
 ## License
 
-Copyright (c) 2013-2021 Naoto Yokoyama.
+Copyright (c) 2013-2022 Naoto Yokoyama.
 Distributed under the MIT License.
 See the file LICENSE.
