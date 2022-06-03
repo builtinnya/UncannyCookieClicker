@@ -16,6 +16,13 @@
 
 This extension also works on the [beta version of Cookie Clicker][].
 
+## Supported versions
+
+The following [versions of Cookie Clicker](https://cookieclicker.fandom.com/wiki/Version_History) are supported:
+
+- 2.048 or above
+- 2.047 (beta) or above
+
 [Uncanny Cookie Clicker]: https://chrome.google.com/webstore/detail/uncanny-cookie-clicker/mmmdenlpgbgmeofmdkhimecmkcgabgno
     "Uncanny Cookie Clicker"
 
@@ -24,9 +31,6 @@ This extension also works on the [beta version of Cookie Clicker][].
 
 [Cookie Clicker]: http://orteil.dashnet.org/cookieclicker/
     "Cookie Clicker"
-
-[beta version of Cookie Clicker]: http://orteil.dashnet.org/cookieclicker/beta/
-    "Cookie Clicker Beta"
 
 ## Publishing
 
