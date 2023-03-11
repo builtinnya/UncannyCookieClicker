@@ -69,12 +69,8 @@ $ ./pack.sh src
 - [Petrie Wong](https://github.com/petriewong) - update auto click golden cookies for v2.002
 - [mendel3](https://github.com/mendel3) - Add HTTPS support
 
-## Sponsors
-
-<a href="https://jointoucan.com/partners/uncannycookieclicker"><img src="./images/toucan-with-text.png" alt="toucan" width="250" height="250"></a>
-
 ## License
 
-Copyright (c) 2013-2022 Naoto Yokoyama.
+Copyright (c) 2013-2023 Naoto Yokoyama.
 Distributed under the MIT License.
 See the file LICENSE.
