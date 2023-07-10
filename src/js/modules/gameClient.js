@@ -73,7 +73,9 @@ var gameClient = function (WatchJS, Game, pageMessagingClient) {
     if (goldenCookie.l.style.opacity == 0) {
       // wait for goldenCookie first update
       setTimeout(function(){
-        clickGoldenCookie(goldenCookie); 
+        if(Game.shimmers.includes(goldenCookie)){
+          clickGoldenCookie(goldenCookie); 
+        }
       }, 500);
     } else {
       goldenCookie.pop();
